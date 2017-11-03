@@ -7,6 +7,10 @@
 #include <string>
 using namespace std;
 
+const int feetPerMile = 5280;
+const int yardsPerMile = 1760;
+const int feetPerYard = 3;
+
 //Prints the data passed to the arguments in "value unit" form, adding an 's' after the unit to pluralize it, if applicable
 void printValue(string unit, int value)
 {
@@ -50,23 +54,23 @@ struct Distance
 	//Returns the speed in MPH if something were to travel the distance in the struct in 'time' (minutes)
 	float getMPH(float time)
 	{
-		float totalMiles = miles + (yards / 1760) + (feet / 5280);
+		float totalMiles = miles + (yards / yardsPerMile) + (feet / feetPerMile);
 
-		return totalMiles / (time / 60);
+		return totalMiles / (time / 60.f);
 	}
 };
 
 Distance ConvertYards(long yards)		//Create a distance struct from a length in yards
 {
-	int miles = yards / 1760;
-	return Distance(miles, yards - (miles * 1760), 0);
+	int miles = yards / yardsPerMile;
+	return Distance(miles, yards - (miles * yardsPerMile), 0);
 }
 
 Distance ConvertFeet(long feet)			//Create a distance struct from a length in feet
 {
-	int miles = feet / 5280;
-	int yards = (feet - (miles * 5280)) / 3;
-	return Distance(miles, yards, feet - (yards * 3));
+	int miles = feet / feetPerMile;
+	int yards = (feet - (miles * feetPerMile)) / feetPerYard;
+	return Distance(miles, yards, feet - (yards * feetPerYard) - (miles * feetPerMile));
 }
 
 int main()
