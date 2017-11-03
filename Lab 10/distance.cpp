@@ -4,43 +4,66 @@
 //*****************************************************
 
 #include <iostream>
+#include <string>
 using namespace std;
+
+//Prints the data passed to the arguments in "value unit" form, adding an 's' after the unit to pluralize it, if applicable
+void printValue(string unit, int value)
+{
+	cout << value << " " << unit << (value == 1 ? "" : "s");
+}
+
+//Prints the value in feet 'value', using feet or foot based on the value being displayed
+void printFeet(int value)
+{
+	cout << value << " " << (value == 1 ? "foot" : "feet");
+}
 
 struct Distance
 {
-  long  feet;
-  long  yards;
-  long  miles;
+	Distance::Distance() {}	//Constructs an empty struct
+
+	//Constructs a distance struct with the values passed.  Does not do any input validation.
+	Distance::Distance(int _miles, int _yards, int _feet)
+	{
+		miles = _miles;
+		yards = _yards;
+		feet = _feet;
+	}
+
+	int  feet;
+	int  yards;
+	int  miles;
+
+	//Prints the data
+	void print()
+	{
+		cout << "The distance is ";
+		printValue("mile", miles);
+		cout << ", ";
+		printValue("yard", yards);
+		cout << ", and ";
+		printFeet(feet);
+		cout << endl;
+	}
 };
 
 Distance ConvertYards(long yards)		//Create a distance struct from a length in yards
 {
-	Distance val;
-	val.yards = yards;
-	val.feet = yards * 3;
-	val.miles = yards * 3 / 5280;
-	return val;
+	int miles = yards / 1760;
+	return Distance(miles, yards - (miles * 1760), 0);
 }
 
 Distance ConvertFeet(long feet)			//Create a distance struct from a length in feet
 {
-	Distance val;
-	val.feet = feet;
-	val.yards = feet / 3;
-	val.miles = feet / 5280;
-	return val;
-}
-
-void PrintDistance(Distance distance)	//Print the data from a distance struct to the console
-{
-	cout << "Distance:" << endl;
-	cout << "Feet: " << distance.feet << endl;
-	cout << "Yards: " << distance.yards << endl;
-	cout << "Miles: " << distance.miles << endl;
-	cout << endl;
+	int miles = feet / 5280;
+	int yards = (feet - (miles * 5280)) / 3;
+	return Distance(miles, yards, feet - (yards * 3));
 }
 
 int main()
 {
-
+	ConvertFeet(6002).print();
+	ConvertYards(5230).print();
+	cin.get();
 }
