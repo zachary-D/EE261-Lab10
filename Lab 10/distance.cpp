@@ -13,44 +13,34 @@ struct Distance
   long  miles;
 };
 
-Distance ConvertYards(long yards);
-// Post: yards has been converted into a variable of
-//       type Distance.
+Distance ConvertYards(long yards)		//Create a distance struct from a length in yards
+{
+	Distance val;
+	val.yards = yards;
+	val.feet = yards * 3;
+	val.miles = yards * 3 / 5280;
+	return val;
+}
 
-Distance ConvertFeet(long feet);
-// Post: feet has been converted into a variable of
-//       type Distance.
+Distance ConvertFeet(long feet)			//Create a distance struct from a length in feet
+{
+	Distance val;
+	val.feet = feet;
+	val.yards = feet / 3;
+	val.miles = feet / 5280;
+	return val;
+}
 
-void PrintDistance(Distance distance);
-// Post:  A vriable of type Distance is printed as feet,
-//        yards, and miles.
-
+void PrintDistance(Distance distance)	//Print the data from a distance struct to the console
+{
+	cout << "Distance:" << endl;
+	cout << "Feet: " << distance.feet << endl;
+	cout << "Yards: " << distance.yards << endl;
+	cout << "Miles: " << distance.miles << endl;
+	cout << endl;
+}
 
 int main()
 {
-  // FILL IN code to test the operations involving
-  // struct Distance.
+
 }
-
-
-//*********  Distance Operations ********************
-
-Distance ConvertYards(long yards)
-{
-  // FILL IN Code to convert yards to a variable of Distance.
-}
-
-//******************************************************
-
-Distance ConvertFeet(long feet)
-{
-  // FILL IN Code to convert feet to a variable of Distance.
-}
-
-//******************************************************
-
-void PrintDistance(Distance Distance)
-{
-  // FILL IN Code to print a variable of Distance.
-}
-
