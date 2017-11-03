@@ -46,6 +46,14 @@ struct Distance
 		printFeet(feet);
 		cout << endl;
 	}
+
+	//Returns the speed in MPH if something were to travel the distance in the struct in 'time' (minutes)
+	float getMPH(float time)
+	{
+		float totalMiles = miles + (yards / 1760) + (feet / 5280);
+
+		return totalMiles / (time / 60);
+	}
 };
 
 Distance ConvertYards(long yards)		//Create a distance struct from a length in yards
@@ -63,7 +71,12 @@ Distance ConvertFeet(long feet)			//Create a distance struct from a length in fe
 
 int main()
 {
+	//Exercise 2 Checks
 	ConvertFeet(6002).print();
 	ConvertYards(5230).print();
+
+	//Exercise 3
+	cout << "Miles per hour traveled: " << Distance(37, 12000, 15000).getMPH(45) << endl;
+
 	cin.get();
 }
